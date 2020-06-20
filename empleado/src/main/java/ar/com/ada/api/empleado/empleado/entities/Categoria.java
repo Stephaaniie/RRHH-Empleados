@@ -8,6 +8,9 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "categoria")
 public class Categoria {
@@ -26,10 +29,11 @@ public class Categoria {
     @Column(name = "descripcion")
     private String descripcion;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonIgnore
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
+	@JsonIgnore
     private List<Empleado> empleados = new ArrayList<>();
-
+	
 	public int getCategoriaId() {
 		return categoriaId;
 	}

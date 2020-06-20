@@ -2,10 +2,11 @@ package ar.com.ada.api.empleado.empleado.entities;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -42,7 +43,7 @@ public class Empleado {
     
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
-    private Categoria categoria;
+	private Categoria categoria;
 
 	public int getEmpleadoId() {
 		return empleadoId;
@@ -117,7 +118,4 @@ public class Empleado {
 		this.categoria.getEmpleados().add(this);
 	}
 
-	public List<Empleado> getEmpleados() {
-		return null;
-	}
 }
