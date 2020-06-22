@@ -1,5 +1,6 @@
 package ar.com.ada.api.empleado.empleado.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.empleado.empleado.entities.Empleado;
-import ar.com.ada.api.empleado.empleado.models.request.InfoBasicaEmpleadoRequest;
 import ar.com.ada.api.empleado.empleado.repos.EmpleadoRepository;
 
 @Service
@@ -52,46 +52,6 @@ public class EmpleadoService {
 		return object == null;
 	}
 
-	public Empleado crearEmpleado(InfoBasicaEmpleadoRequest info, Empleado empleado) {
-        empleado.setNombre(info.nombre);
-
-        empleado.setEdad(info.edad);
-
-        empleado.setSueldo(info.sueldo);
-
-        empleado.setCategoria(categoriaService.busCategoriaPorId(info.categoriaId));
-        
-        empleado.setFechaAlta(new Date());
-        
-        empleado.setEstadoId(1);
-
-        empleadoRepository.save(empleado);
-
-		return empleado;
-	}
-
-	public boolean actualizarEmpleado(Empleado empleadoOrg, Empleado empleadoNuevo) {
-        empleadoOrg.setNombre(empleadoNuevo.getNombre());
-
-        empleadoOrg.setEdad(empleadoNuevo.getEdad());
-
-        empleadoOrg.getCategoria().setCategoriaId(empleadoNuevo.getCategoria().getCategoriaId());
-
-        empleadoOrg.setFechaAlta(empleadoNuevo.getFechaAlta()); 
-        
-        empleadoOrg.setFechaBaja(empleadoNuevo.getFechaBaja());
-
-        empleadoRepository.save(empleadoOrg);
-        return true;
-	}
-
-	public boolean actualizarSueldo(Empleado empleadoOrg, Empleado empleado) {
-        empleadoOrg.setSueldo(empleado.getSueldo());
-
-        empleadoRepository.save(empleadoOrg);
-
-        return true;
-	}
 
 	public boolean actualizarEstado(Empleado empleadoOrg, int estado) {
         empleadoOrg.setEmpleadoId(estado);
@@ -116,4 +76,45 @@ public class EmpleadoService {
 
         return empleadoRepository.findAllByCategoriaId(categoriaId);
     }
+
+	public Empleado crearEmpleado(BigDecimal sueldo, String nombre, int edad, int categoriaId, Empleado empleado) {
+        empleado.setCategoria(categoriaService.busCategoriaPorId(categoriaId));
+
+        empleado.setNombre(nombre);
+
+        empleado.setEdad(edad);
+
+        empleado.setSueldo(sueldo);
+
+        empleado.setFechaAlta(new Date());
+
+        empleado.setEstadoId(1);
+
+        empleadoRepository.save(empleado);
+
+		return empleado;
+    }
+
+	public boolean actualizarEmpleado(Empleado empleadoOrg, Empleado empleadoNuevo) {
+        empleadoOrg.setNombre(empleadoNuevo.getNombre());
+
+        empleadoOrg.setEdad(empleadoNuevo.getEdad());
+
+        empleadoOrg.getCategoria().setCategoriaId(empleadoNuevo.getCategoria().getCategoriaId());
+
+        empleadoOrg.setFechaAlta(empleadoNuevo.getFechaAlta()); 
+        
+        empleadoOrg.setFechaBaja(empleadoNuevo.getFechaBaja());
+
+        empleadoRepository.save(empleadoOrg);
+        return true;
+	}
+
+	public boolean actualizarSueldo(Empleado empleadoOrg, BigDecimal sueldo) {
+        empleadoOrg.setSueldo(sueldo);
+
+        empleadoRepository.save(empleadoOrg);
+
+        return true;
+	}
 }

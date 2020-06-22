@@ -1,6 +1,7 @@
 package ar.com.ada.api.empleado.empleado.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,9 @@ public class CategoriaController {
     public ResponseEntity<?> crearCategoria(@RequestBody InfoBasicaCategoriaRequest info){
         GenericResponse response = new GenericResponse();
 
-        Categoria categoria = categoriaService.crearCategoria(info, new Categoria());
+        Categoria categoria = categoriaService.crearCategoria(info.categoriaId,info.descripcion,info.sueldo, new Categoria());
 
-        if (categoriaService.operacionCheck(categoria)) {
+        if (categoria != null) {
             response.isOk= true;
             response.id = categoria.getCategoriaId();
             response.mensaje = "La categoria se genero correctamente";
@@ -36,8 +37,9 @@ public class CategoriaController {
 
     @GetMapping("/categorias")
     public ResponseEntity<List<Categoria>> listarCategorias() {
-        if (categoriaService.operacionCheck(categoriaService.listarCategorias())) {
-            return ResponseEntity.ok(categoriaService.listarCategorias());
+        List<Categoria> categorias = categoriaService.listarCategorias();
+        if (categorias != null) {
+            return ResponseEntity.ok(categorias);
         }
         return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

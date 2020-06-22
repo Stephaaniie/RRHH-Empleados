@@ -1,5 +1,6 @@
 package ar.com.ada.api.empleado.empleado.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.empleado.empleado.entities.Categoria;
 import ar.com.ada.api.empleado.empleado.entities.Empleado;
-import ar.com.ada.api.empleado.empleado.models.request.InfoBasicaCategoriaRequest;
 import ar.com.ada.api.empleado.empleado.repos.CategoriaRepository;
 
 @Service
@@ -55,14 +55,14 @@ public class CategoriaService {
 		return objeto == null;
 	}
 
-	public Categoria crearCategoria(InfoBasicaCategoriaRequest info, Categoria categoria) {
+	public Categoria crearCategoria(int categoriaId, String descripcion, BigDecimal sueldo, Categoria categoria) {
 
 		if (existsById(busCategoriaPorId(categoria.getCategoriaId()))) {
 			return null;
 		}
-		categoria.setDescripcion(info.descripcion);
-		categoria.setCategoriaId(info.categoriaId);
-		categoria.setSueldo(info.sueldo);
+		categoria.setDescripcion(descripcion);
+		categoria.setCategoriaId(categoriaId);
+		categoria.setSueldo(sueldo);
 		categoriaRepository.save(categoria);
 		return categoria;
 	}
