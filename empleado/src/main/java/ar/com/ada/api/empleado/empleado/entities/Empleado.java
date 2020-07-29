@@ -2,9 +2,12 @@ package ar.com.ada.api.empleado.empleado.entities;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Random;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -42,6 +45,16 @@ public class Empleado {
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "categoria_id")
 	private Categoria categoria;
+
+	public Empleado(int categoriaId, int edad, String nombre, BigDecimal sueldo2) {
+		this.categoria.setCategoriaId(categoriaId);
+
+		this.edad = edad;
+
+		this.nombre = nombre;
+
+		this.sueldo = sueldo2;
+	}
 
 	public int getEmpleadoId() {
 		return empleadoId;
@@ -126,4 +139,14 @@ public class Empleado {
         EMPLEADO_DATOS_INVALIDOS
     }
 
+	@JsonIgnore
+    public BigDecimal getVentasActuales() {
+		Random randomGenerator = new Random();
+		
+        double venta = randomGenerator.nextDouble() * 10000 + 1;
+
+		venta = ((long) (venta * 100)) / 100d;
+
+        return new BigDecimal(venta);
+    }
 }

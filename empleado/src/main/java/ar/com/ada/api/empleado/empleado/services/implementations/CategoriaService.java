@@ -1,11 +1,13 @@
 package ar.com.ada.api.empleado.empleado.services.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import ar.com.ada.api.empleado.empleado.controllers.CategoriaController;
 import ar.com.ada.api.empleado.empleado.entities.Categoria;
+import ar.com.ada.api.empleado.empleado.entities.Empleado;
 import ar.com.ada.api.empleado.empleado.excepciones.ResourceNotFoundException;
 import ar.com.ada.api.empleado.empleado.repos.CategoriaRepository;
 import ar.com.ada.api.empleado.empleado.services.ICategoriaService;
@@ -50,7 +52,38 @@ public class CategoriaService implements ICategoriaService {
 
 	@Override
 	public Categoria findById(int id) throws ResourceNotFoundException {
-        return  categoriaRepository.findById(id).orElseThrow(
+		return  categoriaRepository.findById(id).orElseThrow(
             () -> new ResourceNotFoundException("model with id " + id + " not found"));
 	}
+
+	public List<Empleado> calcularProximosSueldos() {
+        List<Empleado> empleados = new ArrayList<>();
+
+        this.findAll().stream().forEach(categoria -> {
+
+            categoria.getEmpleados().stream().forEach(empleado -> {
+
+                empleado.setSueldo(categoria.calcularSueldo(empleado));
+                empleados.add(empleado);
+            });
+
+        });
+        return empleados;
+	}
+
+	public List<Empleado> obtenerSueldosActuales() {
+        List<Empleado> empleados = new ArrayList<>();
+
+        this.findAll().stream().forEach(cat -> empleados.addAll(cat.getEmpleados()));
+
+        return empleados;
+    }
+
+	public List<Categoria> obtenerCategoriasSinEmpleados() {
+        return this.findAll().stream().filter(cat -> cat.getEmpleados().size() == 0).collect(Collectors.toList());
+	}
+	
+	public List<Object> obtenerNombresCategorias() {
+        return this.findAll().stream().map(categoria -> categoria.getNombre()).collect(Collectors.toList());
+    }
 }

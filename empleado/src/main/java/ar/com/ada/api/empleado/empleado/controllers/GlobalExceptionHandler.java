@@ -5,6 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import ar.com.ada.api.empleado.empleado.excepciones.ResourceNotFoundException;
+import ar.com.ada.api.empleado.empleado.models.CustomHttpResponse;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(value = {ResourceNotFoundException.class})
