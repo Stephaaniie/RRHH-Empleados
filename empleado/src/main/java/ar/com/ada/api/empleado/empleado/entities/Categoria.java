@@ -20,9 +20,6 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoriaId;
 
-    @Column(name = "empleado_id")
-    private int empleadoId;
-
     @Column(name = "sueldo_base")
     private BigDecimal sueldo;
 
@@ -40,14 +37,6 @@ public class Categoria {
 
 	public void setCategoriaId(int categoriaId) {
 		this.categoriaId = categoriaId;
-	}
-
-	public int getEmpleadoId() {
-		return empleadoId;
-	}
-
-	public void setEmpleadoId(int empleadoId) {
-		this.empleadoId = empleadoId;
 	}
 
 	public BigDecimal getSueldo() {

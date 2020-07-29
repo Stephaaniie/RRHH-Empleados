@@ -112,7 +112,7 @@ public class EmpleadoController {
         }
         return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
+/*
     @GetMapping("/empleados/{nombre}")
     public ResponseEntity<?> listarEmpleadoPorNombre(@PathVariable String nombre) {
         List<Empleado> empleados = empleadoService.getEmpleadosPorNombre(nombre);
@@ -120,7 +120,7 @@ public class EmpleadoController {
             return ResponseEntity.ok(empleados);
        }
        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+    }*/
 
     @GetMapping("/empleados/{id}")
     public ResponseEntity<Empleado> getEmpleadoPorId(@PathVariable int id) {
