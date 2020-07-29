@@ -6,44 +6,51 @@ import org.springframework.stereotype.Service;
 
 import ar.com.ada.api.empleado.empleado.controllers.CategoriaController;
 import ar.com.ada.api.empleado.empleado.entities.Categoria;
+import ar.com.ada.api.empleado.empleado.excepciones.ResourceNotFoundException;
 import ar.com.ada.api.empleado.empleado.repos.CategoriaRepository;
 import ar.com.ada.api.empleado.empleado.services.ICategoriaService;
 
 @Service
 public class CategoriaService implements ICategoriaService {
 
-    private final CategoriaRepository CategoriaRepository;
+    private final CategoriaRepository categoriaRepository;
 
     public CategoriaService(CategoriaRepository cRepository){
-        this.CategoriaRepository = cRepository;
+        this.categoriaRepository = cRepository;
     }
 
 	@Override
 	public List<Categoria> findAll() {
-		return CategoriaRepository.findAll();
+		return categoriaRepository.findAll();
 	}
 
 	@Override
-	public Categoria save(Categoria entity) {
-		// TODO Auto-generated method stub
-		return null;
+	public Categoria save(Categoria categoria) {
+		return categoriaRepository.save(categoria);
 	}
 
 	@Override
-	public void delete(Categoria entity) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Categoria categoria) {
+		this.deleteById(categoria.getCategoriaId());
 	}
 
 	@Override
 	public void deleteById(int id) {
-		// TODO Auto-generated method stub
-		
+		if (!categoriaRepository.existsById(id)){
+            throw new ResourceNotFoundException("model with id " + id + " not found");
+        }
+        categoriaRepository.deleteById(id);
 	}
+
 
 	@Override
 	public Long count() {
-		// TODO Auto-generated method stub
-		return null;
+		return categoriaRepository.count();
     }
+
+	@Override
+	public Categoria findById(int id) throws ResourceNotFoundException {
+        return  categoriaRepository.findById(id).orElseThrow(
+            () -> new ResourceNotFoundException("model with id " + id + " not found"));
+	}
 }
