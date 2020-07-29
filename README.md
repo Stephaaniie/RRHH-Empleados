@@ -6,7 +6,7 @@ Para la solicitud de los WebMetodos
 
 ### HEROKU :computer:
 Con Postgre como base de datos.
-<a href="https://clima-nasa.herokuapp.com/" target="_blank">API Empleados <a>
+<a href="https://rrhh-empleados.herokuapp.com/" target="_blank">API Empleados <a>
  
 ### Pre-requisitos 📋
 
