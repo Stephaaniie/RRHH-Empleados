@@ -18,7 +18,7 @@ public class Empleado {
     @Column(name = "empleado_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int empleadoId;
-    
+	
     private String nombre;
 
     @NaturalId
@@ -115,5 +115,15 @@ public class Empleado {
 		this.categoria = categoria;
 		this.categoria.getEmpleados().add(this);
 	}
+
+	public enum EmpleadoValidationType {
+        EMPLEADO_OK, 
+        EMPLEADO_DUPLICADO, 
+        EMPLEADO_INVALIDO, 
+        SUELDO_NULO, 
+        EDAD_INVALIDA, 
+        NOMBRE_INVALIDO,
+        EMPLEADO_DATOS_INVALIDOS
+    }
 
 }
