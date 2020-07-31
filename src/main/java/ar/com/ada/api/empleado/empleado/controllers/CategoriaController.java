@@ -20,7 +20,7 @@ import ar.com.ada.api.empleado.empleado.models.request.InfoBasicaCategoriaReques
 import ar.com.ada.api.empleado.empleado.services.implementations.CategoriaService;
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("api/categorias")
 public class CategoriaController {
     @Autowired
     CategoriaService categoriaService;

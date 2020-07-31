@@ -23,7 +23,7 @@ import ar.com.ada.api.empleado.empleado.services.implementations.CategoriaServic
 import ar.com.ada.api.empleado.empleado.services.implementations.EmpleadoService;
 
 @RestController
-@RequestMapping("/empleados")
+@RequestMapping("api/empleados")
 public class EmpleadoController {   
 
   @Autowired
