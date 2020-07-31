@@ -1,5 +1,14 @@
 # RRHH-EMPLEADOS :muscle: :octocat:
-WEB API:  RRHH-EMPLEADOS es un Proyecto realizado en Java 11 con SpringBoot, Maven, Hibernate, Tomcat como webServer. Su utilizo inicalmente MySQL y Postman pero para relizar el deploy se transporto a Postgre.
+WEB API:  RRHH-EMPLEADOS es un Proyecto realizado en Java 11 con SpringBoot, Maven, Hibernate, Tomcat como webServer. Su utilizo inicalmente MySQL pero para relizar el deploy se transporto a Postgre.
+
+### MYSQL :file_folder:
+
+Imagen de como quedaron relacionadas las tablas del proyecto.
+
+<div style="width: 100%">
+ <img width="49.15%" src="https://github.com/Stephaaniie/RRHH-Empleados/blob/master/src/main/resources/img/empleados.png"/>
+</div>
+
 
 ### POSTMAN :shipit:
 Para la solicitud de los WebMetodos
