@@ -15,32 +15,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.com.ada.api.empleado.empleado.entities.Categoria;
 import ar.com.ada.api.empleado.empleado.entities.Empleado;
 import ar.com.ada.api.empleado.empleado.models.request.EstadoNuevo;
 import ar.com.ada.api.empleado.empleado.models.request.InfoBasicaEmpleadoRequest;
 import ar.com.ada.api.empleado.empleado.models.request.SueldoNuevo;
+import ar.com.ada.api.empleado.empleado.services.implementations.CategoriaService;
 import ar.com.ada.api.empleado.empleado.services.implementations.EmpleadoService;
 
 @RestController
 @RequestMapping("/empleados")
 public class EmpleadoController {   
 
-    @Autowired
-    EmpleadoService empleadoService;
+  @Autowired
+  EmpleadoService empleadoService;
 
-    @PutMapping("/{id}")
-    public Empleado modificarEmpleado(@PathVariable int id, @RequestBody Empleado empleado) {
-      empleado.setEmpleadoId(id);
-      return empleadoService.save(empleado);
-    }
+  @Autowired
+  CategoriaService categoriaService;
 
-    @PutMapping("/{id}/sueldos")
-    public Empleado modificarSueldo(@PathVariable int id, @RequestBody SueldoNuevo sueldoNuevo) {
-      Empleado empleado = empleadoService.findById(id);
-      empleado.setSueldo(sueldoNuevo.sueldo);
-      return empleadoService.save(empleado);
-    }
+  @PutMapping("/{id}")
+  public Empleado modificarEmpleado(@PathVariable int id, @RequestBody Empleado empleado) {
+    empleado.setEmpleadoId(id);
+    return empleadoService.save(empleado);
+  }
+
+  @PutMapping("/{id}/sueldos")
+  public Empleado modificarSueldo(@PathVariable int id, @RequestBody SueldoNuevo sueldoNuevo) {
+    Empleado empleado = empleadoService.findById(id);
+    empleado.setSueldo(sueldoNuevo.sueldo);
+    return empleadoService.save(empleado);
+  }
 
   @PutMapping("/{id}/estados")
   public Empleado modificarEstado(@PathVariable int id, @RequestBody EstadoNuevo estado) {
@@ -75,9 +78,9 @@ public class EmpleadoController {
 		return empleadoService.findByDni(dni);
   }
 
-  @GetMapping("/{categoria}")
-  public List<Empleado> findByCategoria(@PathVariable Categoria categoria) {
-		return empleadoService.findByCategoria(categoria);
+  @GetMapping("/categorias/{id}")
+  public List<Empleado> findByCategoria(@PathVariable Integer id) {
+		return empleadoService.findByCategoria(categoriaService.findById(id));
   }
 
   @GetMapping("/{edad}")

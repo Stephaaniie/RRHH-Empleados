@@ -52,17 +52,17 @@ public class CategoriaController {
       return categoriaService.save(categoria);
     }
 
-    @GetMapping("/categorias/sueldos-nuevos")
+    @GetMapping("/sueldos-nuevos")
     public List<Empleado> getSueldosNuevos() {
         return categoriaService.calcularProximosSueldos();
     }
 
-    @GetMapping("/categorias/sueldos-actuales")
+    @GetMapping("/sueldos-actuales")
     public List<Empleado> getSueldosActuales() {
         return categoriaService.obtenerSueldosActuales();
     }
 
-    @GetMapping("/categorias/vacias")
+    @GetMapping("/vacias")
     public List<Categoria> getCategoriasSinEmpleados() {
         return categoriaService.obtenerCategoriasSinEmpleados();
     }
